@@ -2,12 +2,12 @@ import functools
 import json
 import operator
 from typing import TypedDict, Annotated, List
-from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
+from langchain_core.messages import BaseMessage, HumanMessage
 from langchain_openai.chat_models import ChatOpenAI
 from langgraph.graph import StateGraph, END
 
 from helper_utilities import create_agent, create_team_supervisor, agent_node
-from research_team_tools import search_news
+from research_team_tools import tavily_tool
 
 
 # Definição do Grafo de Linguagem do Time de pesquisa
@@ -27,9 +27,8 @@ llm = ChatOpenAI(model="gpt-3.5-turbo", openai_api_key=config["openai_api_key"])
 
 search_agent = create_agent(
     llm,
-    [search_news],
-    f"Você é um especialista em IA. Para me auxiliar na pesquisa, utilize a ferramenta de busca de notícias "
-    f"para encontrar os artigos mais recentes relacionados a tecnologias de IA e a utilização de IA na sociedade."
+    [tavily_tool],
+    f"You are a research assistant who can search for up-to-date info using the tavily search engine."
 )
 search_node = functools.partial(agent_node, agent=search_agent, name="Search")
 

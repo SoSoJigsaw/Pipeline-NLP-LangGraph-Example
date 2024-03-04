@@ -1,15 +1,22 @@
-from pathlib import Path
-from tempfile import TemporaryDirectory
-from typing import Dict, Optional, Annotated, List
-
+from typing import Annotated, List
 from langchain_core.tools import tool
-from langchain_experimental.utilities import PythonREPL
 
 
 @tool
-def print_results(
-        points: Annotated[List[str], "Lista de resumos a respeito das noticias mais recentes de IA"]
-) -> Annotated[str, "Definindo para que seja printado cada resumo."]:
-    for i, point in enumerate(points):
-        print(f"{i + 1}. {point}\n")
-    return "Todos os resumos das principais notícias de IA da semana foram printados com sucesso"
+def print_results(results):
+    """
+        Imprime os resultados da equipe de escrita.
+
+        Args:
+            results: Dicionário contendo os resultados da equipe de escrita.
+
+        Raises:
+            ValueError: Se os resultados não forem válidos.
+        """
+    # Valida os resultados
+    if not isinstance(results, dict):
+        raise ValueError("Resultados inválidos")
+
+    # Imprime os resultados
+    for key, value in results.items():
+        print(f"{key}: {value}")
