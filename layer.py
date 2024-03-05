@@ -1,5 +1,4 @@
 import json
-import logging
 import operator
 from typing import TypedDict, Annotated, List
 
@@ -72,7 +71,7 @@ for s in super_graph.stream(
     {
         "messages": [
             HumanMessage(
-                content="Escreva um resumo das notícais mais recentes de IA"
+                content="Escreva um resumo das notícias mais recentes de IA"
             )
         ],
     },
